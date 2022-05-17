@@ -12,4 +12,21 @@ socket.emit("select_room", {
     room,
 });
 
+document.getElementById("message_imput").addEventListener
+("keypress", (event) =>{
+    if(event.key === 'Enter') {
+        const message = event.target.value;
+        
+        const data = {
+          room,
+          message,
+          username
+        }
+
+        socket.emit("message", data);
+
+        event.target.value = "";
+    }
+})
+
 console.log(username, room);
