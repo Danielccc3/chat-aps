@@ -2,4 +2,5 @@
 
 Código do trabalho tanto back quanto front.
 
-Feito por: Daniel, Lucas e Patrick
+Código feito por: Daniel, Lucas e Patrick
+Parte escrita: Johannes e Cristopher
