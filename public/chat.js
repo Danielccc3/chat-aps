@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const socket = io();
 
 const urlSearch = new URLSearchParams(window.location.search);
@@ -7,10 +9,17 @@ const room = urlSearch.get("select_room");
 //emit = emitir alguma informaçao
 //on = escutando alguma informacao
 
+
+const usernameDiv = document.getElementById("username");
+usernameDiv.innerHTML = `Olá ${username} - Você está na sala ${room}`;
+
 socket.emit("select_room", {
     username,
     room,
-});
+}, (mesages) => {
+    messages.forEach((message) => createMessage(message));
+}
+);
 
 document.getElementById("message_imput").addEventListener
 ("keypress", (event) =>{
@@ -27,6 +36,25 @@ document.getElementById("message_imput").addEventListener
 
         event.target.value = "";
     }
-})
+})/
 
-console.log(username, room);
+socket.on("message", (data) => {
+    createMessage(data)
+});
+
+function createMessage(data) {
+    const messageDiv = document.getElementById("messages");
+
+   messageDiv.innerHTML += /*Isso daqui é pra colocar a parte de msgs do front, e comentar o original pelo oq entendi, é aos 49 minutos por ai que ela mostra*/`
+   <div class="new_message">
+   <label class="form-label">
+        <strong> ${data.username} </strong> <span> ${data.text} - ${dayjs(data.createdAt).format("DD/MM HH:mm")}</span>
+    </label>
+    </div>
+   `;
+
+}
+
+document.getElementById("logout").addEventListener("click", (event) => {
+    window.location.href = "index.html";
+});

@@ -18,7 +18,7 @@ const users: RoomUser[] = []
 const messages: Message[] = []
 
 io.on("connection", (socket) => {
-    socket.on("select_room", (data) => {
+    socket.on("select_room", (data, callback) => {
 
       socket.join(data.room);
 
@@ -33,6 +33,9 @@ io.on("connection", (socket) => {
           socket_id: socket.id
       });
     }
+
+    const messagesRoom = getMessagesRoom(data.room);
+    callback(messagesRoom);
     });
 
     socket.on("message", data => {
@@ -43,5 +46,16 @@ io.on("connection", (socket) => {
         text: data.message,
         createdAt: new Date()
     }
+
+    messages.push (message);
+
+
+      io.to(data.room).emit("message", message);
     })
 });
+
+
+function getMessagesRoom(room: string) {
+    const messagesRoom = messages.filter(message => message.room === room);
+    return messagesRoom;
+};
