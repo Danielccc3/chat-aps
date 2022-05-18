@@ -1,5 +1,7 @@
-# chat-aps
+# Trabalho APS de Chat
 
-teste de README
+Código do trabalho tanto back quanto front.
 
-teste2
+Código feito por: Daniel, Lucas e Patrick
+
+Parte escrita: Johannes e Cristopher
